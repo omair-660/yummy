@@ -164,10 +164,46 @@ svg:hover,i:hover{
     width: 45px;
     height: 45px;
     border: 2px solid;
-    background: transparent;
+    background: black;
     transition: 0.5s;
   }
   .back:hover{
     opacity: 0.5;
     transform: rotate(240deg);
+  }
+  #button {
+    display: inline-block;
+    background-color: #f57c00;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border-radius: 4px;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    transition: background-color .3s, 
+      opacity .5s, visibility .5s;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 999999;
+  }
+  #button::after {
+    content: "\f077";
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 2em;
+    line-height: 50px;
+    color: #fff;
+  }
+  #button:hover {
+    cursor: pointer;
+    background-color: #333;
+  }
+  #button:active {
+    background-color: #555;
+  }
+  #button.show {
+    opacity: 1;
+    visibility: visible;
   }

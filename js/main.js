@@ -437,28 +437,28 @@ async function getDesDefult(idMeal) {
     rowData.innerHTML = content;
 }
 
-defult();
-let check = false;
+defult();let check = false;
+
 function validate(ele) {
     const regex = {
         inputAge: /^(0?[1-9]|[1-9][0-9])$/,
         inputMail: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
         inputName: /^[A-Za-z\s.'!]+$/,
         inputPass: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-        inputPhone: /^\+(?:[0-9] ?){6,14}[0-9]$/
+        inputPhone: /^(?:[0-9] ?){6,14}[0-9]$/
+
     };
 
     if (regex[ele.id].test($(ele).val())) {
         $(ele).addClass("is-valid").removeClass("is-invalid");
         $(ele).next().addClass("d-none").removeClass("d-block");
-        check = true
+        check = true;
     } else {
         $(ele).addClass("is-invalid").removeClass("is-valid");
         $(ele).next().addClass("d-block").removeClass("d-none");
-        check = false
+        check = false;
     }
 }
-
 
 function contact() {
     $(".load").css("display", "flex").hide().fadeIn(1000);
@@ -466,19 +466,19 @@ function contact() {
     let content = '';
     content += `
     <div class='container my-5 py-5 d-flex justify-content-center align-items-center vh-100'>
-        <form action="" class="my-5 py-5">
+        <form action="mailto:elrosyomair@gmail.com" class="my-5 py-5">
             <div class=" my-2">
                 <input oninput="validate(this)" id="inputName" class='form-control my-2' type="text" placeholder="Enter Your Name">
-                <div class="alert alert-danger w-50 d-none">enter name valid</div>
+                <div class="alert alert-danger w-50 d-none">Enter a valid name</div>
                 <input oninput="validate(this)" id="inputMail" class='form-control my-2' type="email" placeholder="Enter Your Email">
-                <div class="alert alert-danger w-50 d-none">enter email-valid *ex@eg.co</div>
+                <div class="alert alert-danger w-50 d-none">Enter valid email *ex@eg.co</div>
             </div>
 
             <div class=" my-2">
                 <input oninput="validate(this)" id="inputPhone" class='form-control my-2' type="text" placeholder="Enter Your Phone">
-                <div class="alert alert-danger w-50 d-none">enter a true number </div>
+                <div class="alert alert-danger w-50 d-none">Enter a valid phone number </div>
                 <input oninput="validate(this)" id="inputAge" class='form-control my-2' type="number" placeholder="Enter Your Age">
-                <div class="alert alert-danger w-50 d-none">enter a true age</div>
+                <div class="alert alert-danger w-50 d-none">Enter a valid age</div>
             </div>
 
             <div class=" my-2">
@@ -492,9 +492,9 @@ function contact() {
     </div>
     `;
 
-    $(".load").fadeOut(250)
+    $(".load").fadeOut(250);
     rowData.innerHTML = content;
-    $(".sear").fadeOut(1000)
+    $(".sear").fadeOut(1000);
 
     const inputName = $("#inputName");
     const inputMail = $("#inputMail");
@@ -505,36 +505,52 @@ function contact() {
     const submitBtn = $("#submitBtn");
 
     $("form").on("input", function () {
-        if (inputName.val() !== "" &&
+        if (
+            inputName.val() !== "" &&
             inputMail.val() !== "" &&
             inputPhone.val() !== "" &&
             inputAge.val() !== "" &&
             inputPass.val() !== "" &&
             inputRePass.val() !== "" &&
-            inputPass.val() === inputRePass.val()
+            inputPass.val() === inputRePass.val() &&
+            check
         ) {
             submitBtn.removeAttr("disabled");
+            submitBtn.css("cursor","pointer")
         } else {
             submitBtn.attr("disabled", "disabled");
+            submitBtn.css("cursor","no-drop")
         }
     });
 
     submitBtn.on("click", function (event) {
         event.preventDefault();
-        if (inputAge.val() == "" ||
+        if (
+            inputAge.val() == "" ||
             inputMail.val() == "" ||
             inputName.val() == "" ||
             inputPass.val() == "" ||
             inputPhone.val() == "" ||
             inputRePass.val() == "" ||
-            check==false)
-            {
-            alert("Please fill in all fields.");
+            !check
+        ) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Please fill in all fields correctly.",
+            });
+            submitBtn.css("cursor","pointer")
+
         } else {
-            alert("Form submitted successfully!");
-            $("input").removeClass("is-valid")
+            Swal.fire({
+                title: "Good job!",
+                text: "Form submitted successfully!",
+                icon: "success",
+            });
+            $("input").removeClass("is-valid");
             $("form")[0].reset();
             submitBtn.attr("disabled", "disabled");
+            submitBtn.css("cursor","no-drop")
         }
     });
 }
@@ -543,12 +559,14 @@ function contact() {
 let row2 = document.querySelector(".search-results");
 
 async function search() {
+    row2.innerHTML=''
     $(".load").css("display", "flex").hide().fadeIn(1000);
 
     let searchQuery = document.getElementById("searchInput").value.trim();
     console.log(searchQuery);
 
     if (!searchQuery) {
+        $(".load").fadeOut(250);
         row2.innerHTML = `<h5 class="text-center">Please enter a search term</h5>`;
         return;
     }
@@ -558,6 +576,7 @@ async function search() {
     let meals = result.meals;
 
     if (!meals) {
+        $(".load").fadeOut(250);
         row2.innerHTML = `<h5 class="text-center">No results found for "${searchQuery}"</h5>`;
         return;
     }
@@ -567,9 +586,11 @@ async function search() {
     for (let i = 0; i < meals.length; i++) {
         content += `
             <div class="col-md-3 mb-3 rounded-3 details">
-                <div onclick="getMealDetailsById(${meals[i].idMeal})">
+                <div onclick="getMealDetailsById(${meals[i].idMeal})" class="position-relative box rounded-3">
                     <img src="${meals[i].strMealThumb}" alt="">
+                    <div class="text position-absolute d-flex flex-coulmn p-2 align-items-center"> 
                     <h5>${meals[i].strMeal}</h5>
+                </div>
                 </div>
             </div>
         `;
@@ -660,3 +681,19 @@ $("ul li").on("click",function(){
     $("ul li").removeClass("active");
     $(this).addClass("active")
 })
+
+var btn = $('#button');
+
+$(window).scroll(function() {
+  if ($(window).scrollTop() > 300) {
+    btn.addClass('show');
+  } else {
+    btn.removeClass('show');
+  }
+});
+
+btn.on('click', function(e) {
+  e.preventDefault();
+  $('html, body').animate({scrollTop:0}, '300');
+});
+
