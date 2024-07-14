@@ -1,0 +1,173 @@
+aside{
+    transition: 0.5s;
+}
+img{
+    width: 100%;
+}
+body{
+    background-color: #000;
+}
+aside{
+    width: 250px;
+    z-index: 99999!important;
+    transition: left 0.5s ease;
+}
+.humy{
+    width: 85px;
+    
+}
+.open ,.closes,.close,.col-md-4 div,li,.icon svg{
+cursor: pointer;
+transition: 0.5s;
+}
+.open,.icon svg {
+    width: 30px;
+    height: 30px;
+    position: relative;
+}
+svg{
+    transition: 0.5s;
+}
+
+.open span {
+    display: block;
+    background-color: #000;
+    width: 100%;
+    height: 4px;
+    position: absolute;
+    transition: 0.5s;
+}
+
+.open span:nth-child(1) {
+    top: 0;
+}
+
+.open span:nth-child(2) {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.open span:nth-child(3) {
+    bottom: 0;
+}
+
+.open.active span:nth-child(1) {
+    top: 50%;
+    transform: rotate(45deg);
+    background-color: red;
+}
+
+.open.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.open.active span:nth-child(3) {
+    top: 50%;
+    transform: rotate(-45deg);
+    background-color: red;
+}
+.sear{
+    display: none;
+}
+.box{
+    overflow: hidden;
+    cursor: pointer;
+}
+.box .text{
+    top: 100%;
+    transition: 0.5s;
+    background-color: rgba(255, 255, 255, 0.705);
+    opacity: 0;
+}
+.box:hover .text{
+    top: 0;
+    left: 0;
+    opacity: 1;
+    right: 0;
+    bottom: 0;
+}
+aside ul li::after{
+    content: "";
+    width: 0;
+    height: 2px;
+    background-color: aliceblue;
+    transition: 0.5s;
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+}
+aside ul li.active::after{
+    width: 85%;
+}
+aside ul li:hover::after{
+    width: 85%;
+}
+.closes{
+    right: 15px;
+}
+
+ul li {
+    transition: 1s;
+}
+.alert.alert-danger.d-block {
+width: 50%;
+}
+@media( max-width:767px) {
+    .alert.alert-danger.d-block {
+        width: 100%!important;
+}
+}
+svg:hover,i:hover{
+    opacity: 0.5;
+}
+
+.load{
+    z-index: 99999999;
+    display: none;
+}
+.loader {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 8px solid #d1914b;
+    box-sizing: border-box;
+    --c:no-repeat radial-gradient(farthest-side, #d64123 94%,#0000);
+    --b:no-repeat radial-gradient(farthest-side, #000 94%,#0000);
+    background:
+      var(--c) 11px 15px,
+      var(--b) 6px 15px,    
+      var(--c) 35px 23px,
+      var(--b) 29px 15px,    
+      var(--c) 11px 46px,
+      var(--b) 11px 34px,    
+      var(--c) 36px 0px,
+      var(--b) 50px 31px,
+      var(--c) 47px 43px,
+      var(--b) 31px 48px,    
+      #f6d353; 
+    background-size: 15px 15px,6px 6px;
+    animation: l4 3s infinite;
+  }
+  @keyframes l4 {
+    0%     {-webkit-mask:conic-gradient(#0000 0     ,#000 0)}
+    16.67% {-webkit-mask:conic-gradient(#0000 60deg ,#000 0)}
+    33.33% {-webkit-mask:conic-gradient(#0000 120deg,#000 0)}
+    50%    {-webkit-mask:conic-gradient(#0000 180deg,#000 0)}
+    66.67% {-webkit-mask:conic-gradient(#0000 240deg,#000 0)}
+    83.33% {-webkit-mask:conic-gradient(#0000 300deg,#000 0)}
+    100%   {-webkit-mask:conic-gradient(#0000 360deg,#000 0)}
+  }
+  .back{
+    top: 15px;
+    right: 15px;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    border: 2px solid;
+    background: transparent;
+    transition: 0.5s;
+  }
+  .back:hover{
+    opacity: 0.5;
+    transform: rotate(240deg);
+  }
